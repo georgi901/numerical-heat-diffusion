@@ -7,7 +7,7 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)
 ![Numerical Methods](https://img.shields.io/badge/Numerical-Methods-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 
 ## ⇰ What You'll Need 
 

@@ -40,13 +40,15 @@ jupyter notebook
   <img src="https://raw.githubusercontent.com/georgi901/numerical-heat-diffusion/main/ecuation.png" alt="Equation Image" width="400"/>
   </p>
 
-  where $\frac{\partial u}{\partial n}(x,y)$ denotes the normal derivative of the function $u$ at the boundary. You will choose:
+  where $\frac{\partial u}{\partial n}(x,y)$ denotes the normal derivative of the function $u$ at the boundary. In general, one can choose:
 
-  * The $2D$ domain $\Omega$ (rectangle, $L$-shaped, circular, etc.) or $3D$.
-  * A partition of the boundary $\partial \Omega$ into two parts, $\Gamma_D \subset \partial \Omega$, the portion of the boundary where the $Dirichlet$ condition is applied, and $\Gamma_N = \partial \Omega \setminus \Gamma_D$, the portion of the boundary where the $Neumann$ condition is applied.
-  * The boundary conditions on this partition, $g_D(x,y)$ and $g_N(x,y)$.
-  * The thermal conductivity of the material, $k(x,y)$ (constant or space-dependent).
-  * The internal heat source of the material, $f(x,y)$.
+  * The domain $\Omega$ (rectangle, $L$-shaped, circular, etc.) in $1D$ or $2D$.
+  * A partition of the boundary $\partial \Omega$ into $\Gamma_D$ (Dirichlet) and $\Gamma_N$ (Neumann) parts.
+  * The boundary conditions $g_D(x,y)$ and $g_N(x,y)$.
+  * The thermal conductivity $k(x,y)$ (constant or space-dependent).
+  * The internal heat source $f(x,y)$.
+
+  In this project, we focus on **Dirichlet boundary conditions** with both **constant and variable conductivity**.
 
 
 * &nbsp;&nbsp;&nbsp;&nbsp;The project contains implementations and experiments for:
@@ -54,7 +56,7 @@ jupyter notebook
   * **$1D$ model with constant conductivity on interval $[0, \frac{\pi}{2}]$** — solved using the ***Thomas algorithm*** for ***tridiagonal systems***.
   * **$1D$ model with variable conductivity on interval $[0,\frac{\pi}{4}]$** — ***modified finite-difference stencil*** to account for $k(x)$.
   * **$2D$ model on a square domain $[0,1] \times [0,1]$** with ***Dirichlet boundary conditions*** — standard 5-point stencil.
-  * **$2D$ model on an irregular ($L$-shaped) domain** — ***masked grid formulation*** and solution via sparse direct methods (e.g., ***QR*** or sparse ***LU***).
+  * **$2D$ model on an irregular ($L$-shaped) domain** — ***masked grid formulation*** and solution via ***sparse direct solver*** (`spsolve`).
     
 
 --- 
@@ -70,13 +72,16 @@ jupyter notebook
   * ***Thomas algorithm*** for efficiently solving the ***tridiagonal linear systems*** that appear in the $1D$ constant-coefficient case ( $O(N)$ ***complexity*** ).
   * ***Modified finite difference stencils*** to handle variable conductivity $k(x)$ in $1D$.
   * **5-point finite-difference stencil** for $2D$ ***Poisson*** problems and ***assembly of sparse linear systems***.
-  * ***Sparse direct solvers*** / ***QR factorization*** for irregular domains where the matrix structure is not ***block-tridiagonal***.
+  * ***Sparse direct solver*** (`scipy.sparse.linalg.spsolve`) for $2D$ problems, including irregular domains where the matrix structure is not ***block-tridiagonal***.
+  * ***Cubic spline interpolation*** ($1D$) and ***bicubic spline interpolation*** ($2D$) for smooth reconstruction of the numerical solution between grid nodes.
 
 ## ⇰ Results
   * Convergence study showing an **empirical order &approx; 2 for central finite differences**.
   * Plots comparing **numerical solution** vs **exact solution** ( *when available* ) and pointwise **error maps** in $1D$ and $2D$.
   * Maximum error values for several **mesh sizes** and a **log-log plot** of **error** vs **grid spacing** $h$.
-  * $2D$ **contour** and **surface plots for temperature distribution** on the **square** and $L$**-shaped domains**.
+  * $2D$ **contour**, **heatmap**, and **3D surface plots** for temperature distribution on the **square** and $L$**-shaped domains**.
+  * **Cross-section plots** at constant $y$ comparing numerical and exact solutions in $2D$.
+  * **Cubic** and **bicubic spline interpolation** of the numerical solution for smooth visualization.
     
 ## ⇰ Usage 
 ### Running Models
